@@ -18,23 +18,14 @@ class _MyAppState extends State<MyApp> {
   int activeStep2 = 0;
   int reachedStep = 0;
   int upperBound = 5;
-  double progress = 0.2;
-  Set<int> reachedSteps = <int>{0, 2, 4, 5};
   final dashImages = [
     'assets/1.png',
     'assets/2.png',
     'assets/3.png',
     'assets/4.png',
     'assets/5.png',
+    'assets/5.png',
   ];
-
-  void increaseProgress() {
-    if (progress < 1) {
-      setState(() => progress += 0.2);
-    } else {
-      setState(() => progress = 0);
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,22 +48,13 @@ class _MyAppState extends State<MyApp> {
               children: [
                 EasyStepper(
                   activeStep: activeStep,
-                  lineStyle: const LineStyle(
-                    lineLength: 50,
-                    lineType: LineType.normal,
-                    lineThickness: 3,
-                    lineSpace: 1,
-                    lineWidth: 10,
-                    unreachedLineType: LineType.dashed,
-                  ),
+                  lineLength: 50,
                   stepShape: StepShape.rRectangle,
                   stepBorderRadius: 15,
                   borderThickness: 2,
                   internalPadding: 10,
                   padding: const EdgeInsetsDirectional.symmetric(
-                    horizontal: 30,
-                    vertical: 20,
-                  ),
+                      horizontal: 30, vertical: 20),
                   stepRadius: 28,
                   finishedStepBorderColor: Colors.deepOrange,
                   finishedStepTextColor: Colors.deepOrange,
@@ -145,6 +127,19 @@ class _MyAppState extends State<MyApp> {
                         textAlign: TextAlign.center,
                       ),
                     ),
+                    EasyStep(
+                      customStep: ClipRRect(
+                        borderRadius: BorderRadius.circular(15),
+                        child: Opacity(
+                          opacity: activeStep >= 5 ? 1 : 0.3,
+                          child: Image.asset('assets/5.png'),
+                        ),
+                      ),
+                      customTitle: const Text(
+                        'Dash 6',
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
                   ],
                   onStepReached: (index) => setState(() => activeStep = index),
                 ),
@@ -165,15 +160,11 @@ class _MyAppState extends State<MyApp> {
                 const SizedBox(height: 20),
                 EasyStepper(
                   activeStep: activeStep,
-                  lineStyle: LineStyle(
-                    lineLength: 100,
-                    lineThickness: 6,
-                    lineSpace: 4,
-                    lineType: LineType.normal,
-                    defaultLineColor: Colors.purple.shade300,
-                    progress: progress,
-                    // progressColor: Colors.purple.shade700,
-                  ),
+                  lineLength: 100,
+                  lineThickness: 3,
+                  lineSpace: 4,
+                  lineType: LineType.normal,
+                  defaultLineColor: Colors.purple.shade300,
                   borderThickness: 10,
                   internalPadding: 15,
                   loadingAnimation: 'assets/loading_circle.json',
@@ -218,25 +209,19 @@ class _MyAppState extends State<MyApp> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Expanded(
-                          flex: 1,
-                          child: _previousStep(StepEnabling.sequential)),
+                      Expanded(flex: 1, child: _previousStep()),
                       Expanded(
                         flex: 15,
                         child: EasyStepper(
                           activeStep: activeStep2,
                           maxReachedStep: reachedStep,
-                          lineStyle: LineStyle(
-                            lineLength: 100,
-                            lineSpace: 4,
-                            lineType: LineType.normal,
-                            unreachedLineColor: Colors.grey.withOpacity(0.5),
-                            finishedLineColor: Colors.deepOrange,
-                            activeLineColor: Colors.grey.withOpacity(0.5),
-                          ),
+                          lineLength: 100,
+                          lineSpace: 4,
+                          lineType: LineType.normal,
                           activeStepBorderColor: Colors.purple,
                           activeStepIconColor: Colors.purple,
                           activeStepTextColor: Colors.purple,
+                          activeLineColor: Colors.grey.withOpacity(0.5),
                           activeStepBackgroundColor: Colors.white,
                           unreachedStepBackgroundColor:
                               Colors.grey.withOpacity(0.5),
@@ -244,10 +229,12 @@ class _MyAppState extends State<MyApp> {
                               Colors.grey.withOpacity(0.5),
                           unreachedStepIconColor: Colors.grey,
                           unreachedStepTextColor: Colors.grey.withOpacity(0.5),
+                          unreachedLineColor: Colors.grey.withOpacity(0.5),
                           finishedStepBackgroundColor: Colors.deepOrange,
                           finishedStepBorderColor: Colors.grey.withOpacity(0.5),
                           finishedStepIconColor: Colors.grey,
                           finishedStepTextColor: Colors.deepOrange,
+                          finishedLineColor: Colors.deepOrange,
                           borderThickness: 10,
                           internalPadding: 15,
                           showLoadingAnimation: false,
@@ -256,43 +243,37 @@ class _MyAppState extends State<MyApp> {
                               icon: const Icon(CupertinoIcons.cart),
                               title: 'Cart',
                               lineText: 'Add Address Info',
-                              enabled:
-                                  _allowTabStepping(0, StepEnabling.sequential),
+                              enabled: _allowTabStepping(0),
                             ),
                             EasyStep(
                               icon: const Icon(CupertinoIcons.info),
                               title: 'Address',
                               lineText: 'Go To Checkout',
-                              enabled:
-                                  _allowTabStepping(1, StepEnabling.sequential),
+                              enabled: _allowTabStepping(1),
                             ),
                             EasyStep(
                               icon: const Icon(
                                   CupertinoIcons.cart_fill_badge_plus),
                               title: 'Checkout',
                               lineText: 'Choose Payment Method',
-                              enabled:
-                                  _allowTabStepping(2, StepEnabling.sequential),
+                              enabled: _allowTabStepping(2),
                             ),
                             EasyStep(
                               icon: const Icon(CupertinoIcons.money_dollar),
                               title: 'Payment',
                               lineText: 'Confirm Order Items',
-                              enabled:
-                                  _allowTabStepping(3, StepEnabling.sequential),
+                              enabled: _allowTabStepping(3),
                             ),
                             EasyStep(
                               icon: const Icon(Icons.file_present_rounded),
                               title: 'Order Details',
                               lineText: 'Submit Order',
-                              enabled:
-                                  _allowTabStepping(4, StepEnabling.sequential),
+                              enabled: _allowTabStepping(4),
                             ),
                             EasyStep(
                               icon: const Icon(Icons.check_circle_outline),
                               title: 'Finish',
-                              enabled:
-                                  _allowTabStepping(5, StepEnabling.sequential),
+                              enabled: _allowTabStepping(5),
                             ),
                           ],
                           onStepReached: (index) => setState(() {
@@ -300,129 +281,34 @@ class _MyAppState extends State<MyApp> {
                           }),
                         ),
                       ),
-                      Expanded(
-                          flex: 1, child: _nextStep(StepEnabling.sequential)),
+                      Expanded(flex: 1, child: _nextStep()),
                     ],
                   ),
                 ),
                 const SizedBox(height: 20),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(
-                        flex: 1, child: _previousStep(StepEnabling.individual)),
-                    Expanded(
-                      flex: 15,
-                      child: EasyStepper(
-                        activeStep: activeStep2,
-                        reachedSteps: reachedSteps,
-                        lineStyle: LineStyle(
-                          lineLength: 100,
-                          lineSpace: 4,
-                          lineType: LineType.dotted,
-                          finishedLineColor: Colors.pink.withOpacity(0.5),
-                          unreachedLineColor: Colors.blueGrey.withOpacity(0.5),
-                          activeLineColor: Colors.blueGrey.withOpacity(0.5),
-                        ),
-                        activeStepBorderColor: Colors.blue,
-                        activeStepIconColor: Colors.blue,
-                        activeStepTextColor: Colors.blue,
-                        activeStepBackgroundColor: Colors.white,
-                        unreachedStepBackgroundColor:
-                            Colors.blueGrey.withOpacity(0.5),
-                        unreachedStepBorderColor:
-                            Colors.blueGrey.withOpacity(0.5),
-                        unreachedStepIconColor: Colors.blueGrey,
-                        unreachedStepTextColor:
-                            Colors.blueGrey.withOpacity(0.5),
-                        finishedStepBackgroundColor:
-                            Colors.pink.withOpacity(0.5),
-                        finishedStepBorderColor:
-                            Colors.blueGrey.withOpacity(0.5),
-                        finishedStepIconColor: Colors.blueGrey,
-                        finishedStepTextColor: Colors.pink.withOpacity(0.5),
-                        borderThickness: 2,
-                        internalPadding: 15,
-                        showStepBorder: true,
-                        showLoadingAnimation: false,
-                        stepRadius: 20,
-                        // stepShape: baseStep.StepShape.rRectangle,
-                        showTitle: true,
-                        steps: [
-                          EasyStep(
-                            icon: const Icon(CupertinoIcons.cart),
-                            title: 'Cart',
-                            lineText: 'Add Address Info',
-                            enabled:
-                                _allowTabStepping(0, StepEnabling.individual),
-                            // showBadge: true,
-                          ),
-                          EasyStep(
-                            icon: const Icon(CupertinoIcons.info),
-                            title: 'Address',
-                            lineText: 'Go To Checkout',
-                            enabled:
-                                _allowTabStepping(1, StepEnabling.individual),
-                          ),
-                          EasyStep(
-                            icon:
-                                const Icon(CupertinoIcons.cart_fill_badge_plus),
-                            title: 'Checkout',
-                            lineText: 'Choose Payment Method',
-                            enabled:
-                                _allowTabStepping(2, StepEnabling.individual),
-                          ),
-                          EasyStep(
-                            icon: const Icon(CupertinoIcons.money_dollar),
-                            title: 'Payment',
-                            lineText: 'Confirm Order Items',
-                            enabled:
-                                _allowTabStepping(3, StepEnabling.individual),
-                          ),
-                          EasyStep(
-                            icon: const Icon(Icons.file_present_rounded),
-                            title: 'Order Details',
-                            lineText: 'Submit Order',
-                            enabled:
-                                _allowTabStepping(4, StepEnabling.individual),
-                          ),
-                          EasyStep(
-                            icon: const Icon(Icons.check_circle_outline),
-                            title: 'Finish',
-                            enabled:
-                                _allowTabStepping(5, StepEnabling.individual),
-                          ),
-                        ],
-                        onStepReached: (index) => setState(() {
-                          activeStep2 = index;
-                        }),
-                      ),
-                    ),
-                    Expanded(
-                        flex: 1, child: _nextStep(StepEnabling.individual)),
-                  ],
-                ),
-                const SizedBox(height: 20),
                 Container(
-                  padding: const EdgeInsets.symmetric(vertical: 40),
                   color: Colors.grey.shade200,
                   clipBehavior: Clip.none,
+                  alignment: Alignment.center,
+                  padding: const EdgeInsetsDirectional.symmetric(
+                      vertical: 20, horizontal: 20),
                   child: EasyStepper(
                     activeStep: activeStep,
-                    lineStyle: const LineStyle(
-                      lineLength: 70,
-                      lineSpace: 0,
-                      lineType: LineType.normal,
-                      defaultLineColor: Colors.white,
-                      finishedLineColor: Colors.orange,
-                      lineThickness: 1.5,
-                    ),
+                    lineLength: 50,
+                    lineSpace: 0,
+                    disableScroll: true,
+                    lineType: LineType.normal,
+                    defaultLineColor: Colors.white,
+                    finishedLineColor: Colors.orange,
                     activeStepTextColor: Colors.black87,
                     finishedStepTextColor: Colors.black87,
-                    internalPadding: 0,
+                    internalPadding: 10,
+                    padding: const EdgeInsetsDirectional.symmetric(
+                        vertical: 20, horizontal: 20),
                     showLoadingAnimation: false,
                     stepRadius: 8,
                     showStepBorder: false,
+                    lineThickness: 1.5,
                     steps: [
                       EasyStep(
                         customStep: CircleAvatar(
@@ -434,7 +320,7 @@ class _MyAppState extends State<MyApp> {
                                 activeStep >= 0 ? Colors.orange : Colors.white,
                           ),
                         ),
-                        title: 'Waiting',
+                        title: 'Pending',
                       ),
                       EasyStep(
                         customStep: CircleAvatar(
@@ -446,7 +332,7 @@ class _MyAppState extends State<MyApp> {
                                 activeStep >= 1 ? Colors.orange : Colors.white,
                           ),
                         ),
-                        title: 'Order Received',
+                        title: 'Waiting',
                         topTitle: true,
                       ),
                       EasyStep(
@@ -459,7 +345,7 @@ class _MyAppState extends State<MyApp> {
                                 activeStep >= 2 ? Colors.orange : Colors.white,
                           ),
                         ),
-                        title: 'Preparing',
+                        title: 'Order Received',
                       ),
                       EasyStep(
                         customStep: CircleAvatar(
@@ -471,7 +357,7 @@ class _MyAppState extends State<MyApp> {
                                 activeStep >= 3 ? Colors.orange : Colors.white,
                           ),
                         ),
-                        title: 'On Way',
+                        title: 'Preparing',
                         topTitle: true,
                       ),
                       EasyStep(
@@ -484,7 +370,20 @@ class _MyAppState extends State<MyApp> {
                                 activeStep >= 4 ? Colors.orange : Colors.white,
                           ),
                         ),
+                        title: 'On Way',
+                      ),
+                      EasyStep(
+                        customStep: CircleAvatar(
+                          radius: 8,
+                          backgroundColor: Colors.white,
+                          child: CircleAvatar(
+                            radius: 7,
+                            backgroundColor:
+                                activeStep >= 5 ? Colors.orange : Colors.white,
+                          ),
+                        ),
                         title: 'Delivered',
+                        topTitle: true,
                       ),
                     ],
                     onStepReached: (index) =>
@@ -494,11 +393,9 @@ class _MyAppState extends State<MyApp> {
                 const SizedBox(height: 50),
                 EasyStepper(
                   activeStep: activeStep,
-                  lineStyle: const LineStyle(
-                    lineLength: 80,
-                    lineThickness: 1,
-                    lineSpace: 5,
-                  ),
+                  lineLength: 80,
+                  lineThickness: 1,
+                  lineSpace: 5,
                   stepRadius: 20,
                   unreachedStepIconColor: Colors.black87,
                   unreachedStepBorderColor: Colors.black54,
@@ -526,20 +423,21 @@ class _MyAppState extends State<MyApp> {
                 SizedBox(
                   height: 450,
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       EasyStepper(
-                        lineStyle: const LineStyle(
-                          lineType: LineType.normal,
-                          unreachedLineType: LineType.dotted,
-                        ),
+                        lineType: LineType.dotted,
                         activeStep: activeStep,
                         direction: Axis.vertical,
                         unreachedStepIconColor: Colors.white,
                         unreachedStepBorderColor: Colors.black54,
                         finishedStepBackgroundColor: Colors.deepPurple,
                         unreachedStepBackgroundColor: Colors.deepOrange,
-                        showTitle: false,
+                        finishedStepTextColor: Colors.black,
+                        showTitle: true,
+                        lineLength: 40,
+                        lineThickness: 2,
+                        internalPadding: 60,
                         onStepReached: (index) =>
                             setState(() => activeStep = index),
                         steps: const [
@@ -562,17 +460,12 @@ class _MyAppState extends State<MyApp> {
                           EasyStep(
                             icon: Icon(Icons.money),
                             activeIcon: Icon(Icons.money),
-                            title: 'Payment',
+                            title: 'Waiting for payment',
                           ),
                           EasyStep(
                             icon: Icon(Icons.local_shipping_outlined),
                             activeIcon: Icon(Icons.local_shipping_outlined),
                             title: 'Shipping',
-                          ),
-                          EasyStep(
-                            icon: Icon(Icons.file_copy_outlined),
-                            activeIcon: Icon(Icons.file_copy_outlined),
-                            title: 'Order Details',
                           ),
                           EasyStep(
                             icon: Icon(Icons.check_circle_outline),
@@ -582,9 +475,7 @@ class _MyAppState extends State<MyApp> {
                         ],
                       ),
                       EasyStepper(
-                        lineStyle: const LineStyle(
-                          lineType: LineType.normal,
-                        ),
+                        lineType: LineType.normal,
                         activeStep: activeStep,
                         direction: Axis.vertical,
                         unreachedStepIconColor: Colors.white,
@@ -620,63 +511,6 @@ class _MyAppState extends State<MyApp> {
                             icon: Icon(Icons.local_shipping_outlined),
                             activeIcon: Icon(Icons.local_shipping_outlined),
                             title: 'Shipping',
-                          ),
-                          EasyStep(
-                            icon: Icon(Icons.file_copy_outlined),
-                            activeIcon: Icon(Icons.file_copy_outlined),
-                            title: 'Order Details',
-                          ),
-                          EasyStep(
-                            icon: Icon(Icons.check_circle_outline),
-                            activeIcon: Icon(Icons.check_circle_outline),
-                            title: 'Finish',
-                          ),
-                        ],
-                      ),
-                      EasyStepper(
-                        lineStyle: const LineStyle(
-                          lineType: LineType.normal,
-                        ),
-                        activeStep: activeStep,
-                        direction: Axis.vertical,
-                        unreachedStepIconColor: Colors.white,
-                        unreachedStepBorderColor: Colors.black54,
-                        finishedStepBackgroundColor: Colors.deepPurple,
-                        unreachedStepBackgroundColor: Colors.deepOrange,
-                        showTitle: false,
-                        onStepReached: (index) =>
-                            setState(() => activeStep = index),
-                        steps: const [
-                          EasyStep(
-                            icon: Icon(CupertinoIcons.cart),
-                            title: 'Cart',
-                            activeIcon: Icon(CupertinoIcons.cart),
-                            lineText: 'Cart Line',
-                          ),
-                          EasyStep(
-                            icon: Icon(Icons.file_present),
-                            activeIcon: Icon(Icons.file_present),
-                            title: 'Address',
-                          ),
-                          EasyStep(
-                            icon: Icon(Icons.filter_center_focus_sharp),
-                            activeIcon: Icon(Icons.filter_center_focus_sharp),
-                            title: 'Checkout',
-                          ),
-                          EasyStep(
-                            icon: Icon(Icons.money),
-                            activeIcon: Icon(Icons.money),
-                            title: 'Payment',
-                          ),
-                          EasyStep(
-                            icon: Icon(Icons.local_shipping_outlined),
-                            activeIcon: Icon(Icons.local_shipping_outlined),
-                            title: 'Shipping',
-                          ),
-                          EasyStep(
-                            icon: Icon(Icons.file_copy_outlined),
-                            activeIcon: Icon(Icons.file_copy_outlined),
-                            title: 'Order Details',
                           ),
                           EasyStep(
                             icon: Icon(Icons.check_circle_outline),
@@ -692,31 +526,21 @@ class _MyAppState extends State<MyApp> {
             ),
           ),
         ),
-        floatingActionButton: FloatingActionButton(onPressed: increaseProgress),
       ),
     );
   }
 
-  bool _allowTabStepping(int index, StepEnabling enabling) {
-    return enabling == StepEnabling.sequential
-        ? index <= reachedStep
-        : reachedSteps.contains(index);
-  }
+  bool _allowTabStepping(int index) => index <= reachedStep;
 
   /// Returns the next button.
-  Widget _nextStep(StepEnabling enabling) {
+  Widget _nextStep() {
     return IconButton(
       onPressed: () {
         if (activeStep2 < upperBound) {
           setState(() {
-            if (enabling == StepEnabling.sequential) {
-              ++activeStep2;
-              if (reachedStep < activeStep2) {
-                reachedStep = activeStep2;
-              }
-            } else {
-              activeStep2 =
-                  reachedSteps.firstWhere((element) => element > activeStep2);
+            ++activeStep2;
+            if (reachedStep < activeStep2) {
+              reachedStep = activeStep2;
             }
           });
         }
@@ -726,19 +550,14 @@ class _MyAppState extends State<MyApp> {
   }
 
   /// Returns the previous button.
-  Widget _previousStep(StepEnabling enabling) {
+  Widget _previousStep() {
     return IconButton(
       onPressed: () {
         if (activeStep2 > 0) {
-          setState(() => enabling == StepEnabling.sequential
-              ? --activeStep2
-              : activeStep2 =
-                  reachedSteps.lastWhere((element) => element < activeStep2));
+          setState(() => --activeStep2);
         }
       },
       icon: const Icon(Icons.arrow_back_ios),
     );
   }
 }
-
-enum StepEnabling { sequential, individual }

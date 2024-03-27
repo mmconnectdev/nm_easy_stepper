@@ -4,9 +4,6 @@ class EasyLine extends StatelessWidget {
   /// Width of the dotted line.
   final double length;
 
-  /// Width of the dashes.
-  final double width;
-
   /// Color of the dotted line.
   final Color color;
 
@@ -26,9 +23,8 @@ class EasyLine extends StatelessWidget {
     key,
     this.length = 50.0,
     this.color = Colors.grey,
-    this.thickness = 3,
+    this.thickness = 1.5,
     this.spacing = 3.0,
-    this.width = 2.0,
     this.lineType = LineType.dotted,
     this.axis = Axis.horizontal,
   }) : super(key: key);
@@ -37,20 +33,17 @@ class EasyLine extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       // If this is not applied, top half of the dot gets offscreen, hence, hidden.
-      margin: EdgeInsets.only(
-          top: lineType == LineType.dotted || lineType == LineType.dashed
-              ? thickness
-              : 0),
+      margin: EdgeInsets.only(top: lineType == LineType.dotted ? thickness : 0),
       width: axis == Axis.horizontal
           ? length
-          : lineType == LineType.dotted
-              ? 0
-              : thickness,
+          : lineType == LineType.normal
+              ? thickness * 2
+              : 0,
       height: axis == Axis.vertical
           ? length
-          : lineType == LineType.dotted
-              ? 0
-              : thickness,
+          : lineType == LineType.normal
+              ? thickness * 2
+              : 0,
       decoration: lineType == LineType.normal
           ? BoxDecoration(
               color: color,
@@ -63,29 +56,11 @@ class EasyLine extends StatelessWidget {
                 brush: Paint()..color = color,
                 length: length,
                 dotRadius: thickness,
-                spacing: spacing,
+                spacing: lineType == LineType.normal ? 0.0 : spacing,
                 axis: axis,
               ),
             )
-          : lineType == LineType.dashed
-              ? Row(
-                  children: List.generate(
-                    length ~/ ((width + spacing) / 2),
-                    (index) => Expanded(
-                      child: index % 2 == 0
-                          ? Container(
-                              color: color,
-                              height: thickness,
-                              width: width,
-                            )
-                          : SizedBox(
-                              width: spacing,
-                              height: thickness,
-                            ),
-                    ),
-                  ),
-                )
-              : null,
+          : null,
     );
   }
 }
@@ -147,7 +122,4 @@ enum LineType {
 
   /// Dotted line with space between dots.
   dotted,
-
-  /// Dashed line with space between dashes.
-  dashed,
 }

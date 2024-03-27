@@ -46,7 +46,6 @@ class BaseStep extends StatelessWidget {
     required this.lineLength,
     required this.enabled,
     required this.direction,
-    required this.showScrollBar,
   }) : super(key: key);
   final EasyStep step;
   final bool isActive;
@@ -80,16 +79,13 @@ class BaseStep extends StatelessWidget {
   final TextDirection textDirection;
   final double lineLength;
   final bool enabled;
-  final bool showScrollBar;
   final Axis direction;
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       width: (radius * 2) + (padding ?? 0),
-      height: showScrollBar
-          ? 10 + (showTitle ? radius * 2.5 + 25 : radius * 2)
-          : (showTitle ? radius * 2.5 + 25 : radius * 2),
+      height: showTitle ? radius * 2.5 + 25 : radius * 1.5,
       child: InkWell(
         onTap: enabled ? onStepSelected : null,
         canRequestFocus: false,
@@ -107,7 +103,7 @@ class BaseStep extends StatelessWidget {
                   ? BorderRadius.circular(stepRadius ?? 0)
                   : null,
               child: InkWell(
-                onTap: enabled ? onStepSelected : null,
+                onTap: onStepSelected,
                 canRequestFocus: false,
                 radius: radius,
                 child: Container(

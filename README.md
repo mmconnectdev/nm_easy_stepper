@@ -1,4 +1,4 @@
-![Easy Stepper](https://github.com/ma7moud3osman/showcase/blob/main/easy_stepper/logo.png?raw=true)
+![Easy Stepper](https://github.com/ma7moud3osman/showcase/blob/main/easy_stepper/logo.png)
 
 ## About
 
@@ -56,7 +56,7 @@ Simple to use icon stepper widget, wherein each icon defines a step. Hence, the 
 
 * __Top And Bottom Title:__  
 
-![topAndBottomTitle](https://github.com/ma7moud3osman/showcase/blob/main/easy_stepper/topAndBottomTitle.gif?raw=true)
+![topAndBottomTitle](https://github.com/ma7moud3osman/showcase/blob/main/easy_stepper/topAndBottomTitle.gif)
 
 Example:
 
@@ -148,7 +148,7 @@ Example:
 
 * __With Image:__  
 
-![dash-Stepper](https://github.com/ma7moud3osman/showcase/blob/main/easy_stepper/dash_stepper.gif?raw=true)
+![dash-Stepper](https://github.com/ma7moud3osman/showcase/blob/main/easy_stepper/dash_stepper.gif)
 
 Example:
 
@@ -242,32 +242,32 @@ Example:
 
 * __With Title:__  
 
-![Horizontal-Stepper](https://github.com/ma7moud3osman/showcase/blob/main/easy_stepper/stepper-horizontal.gif?raw=true)
+![Horizontal-Stepper](https://github.com/ma7moud3osman/showcase/blob/main/easy_stepper/stepper-horizontal.gif)
 
-![horizontal_dotted](https://github.com/ma7moud3osman/showcase/blob/main/easy_stepper/horizontal_dotted.gif?raw=true)
+![horizontal_dotted](https://github.com/ma7moud3osman/showcase/blob/main/easy_stepper/horizontal_dotted.gif)
 
 
 * __Without Title:__  
 
-![Horizontal-Stepper-2](https://github.com/ma7moud3osman/showcase/blob/main/easy_stepper/stepper_horizontal_2.gif?raw=true)
+![Horizontal-Stepper-2](https://github.com/ma7moud3osman/showcase/blob/main/easy_stepper/stepper_horizontal_2.gif)
 
 
 * __With Line Text:__  
 
-![horizontal_with_text](https://github.com/ma7moud3osman/showcase/blob/main/easy_stepper/Horizontal_with_text.gif?raw=true)
+![horizontal_with_text](https://github.com/ma7moud3osman/showcase/blob/main/easy_stepper/Horizontal_with_text.gif)
 
-![Horizontal-Stepper-4](https://github.com/ma7moud3osman/showcase/blob/main/easy_stepper/horizontal_text_line.gif?raw=true)
+![Horizontal-Stepper-4](https://github.com/ma7moud3osman/showcase/blob/main/easy_stepper/horizontal_text_line.gif)
 
 
 * __Round Rectangle Border:__  
 
-![RRect_Horizontal_Stepper](https://github.com/ma7moud3osman/showcase/blob/main/easy_stepper/RRect_Horizontal_Stepper.gif?raw=true)
+![RRect_Horizontal_Stepper](https://github.com/ma7moud3osman/showcase/blob/main/easy_stepper/RRect_Horizontal_Stepper.gif)
  
 
 
 ## Vertical-Stepper
 
-![Vertical-Stepper](https://github.com/ma7moud3osman/showcase/blob/main/easy_stepper/stepper_vertical.gif?raw=true)        ![Vertical-Stepper-3](https://github.com/ma7moud3osman/showcase/blob/main/easy_stepper/vertical_3.gif?raw=true)    ![Vertical-Stepper-2](https://github.com/ma7moud3osman/showcase/blob/main/easy_stepper/stepper_vertical_2.gif?raw=true)   ![Vertical-Stepper-4](https://github.com/ma7moud3osman/showcase/blob/main/easy_stepper/vertical_line.gif?raw=true)     
+![Vertical-Stepper](https://github.com/ma7moud3osman/showcase/blob/main/easy_stepper/stepper_vertical.gif)        ![Vertical-Stepper-3](https://github.com/ma7moud3osman/showcase/blob/main/easy_stepper/vertical_3.gif)    ![Vertical-Stepper-2](https://github.com/ma7moud3osman/showcase/blob/main/easy_stepper/stepper_vertical_2.gif)   ![Vertical-Stepper-4](https://github.com/ma7moud3osman/showcase/blob/main/easy_stepper/vertical_line.gif)     
 
 
 
